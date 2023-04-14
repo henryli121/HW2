@@ -21,7 +21,7 @@ int main () {
     //initialization
     int ntrial = 1000;
     srand(time(NULL));
-    FILE *output_file = fopen("output.txt", "w");
+    /*FILE *output_file = fopen("output.txt", "w");*/
 
     //loop from 2 to 1024 with increment 1
     for (int n = 2; n <= 1024; n += 1) {
@@ -55,12 +55,12 @@ int main () {
      double FLOPs = (2 * n) / avg_time; //f(n) = 2*n scaler multiplication and addition
      printf("for n = %d, average time = %lf s, FLOPs = %lf\n", n, avg_time, FLOPs);
 
-     fprintf(output_file, "%d, %lf\n", n, FLOPs);
+     //fprintf(output_file, "%d, %lf\n", n, FLOPs);
     //free the memory
      free(x);
      free(y);
     }
 
-fclose(output_file);
+//fclose(output_file);
 return 0;
 }
