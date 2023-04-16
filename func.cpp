@@ -1,24 +1,22 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include "func.h"
+#include <cstdlib>
+#include<vector>
+#include "func.hh"
 
-
-//function
-void daxpy(double a, const double *x, double *y, int n) {
+// Function
+void daxpy(double a, const std::vector<double> &x, std::vector<double> &y, int n) {
     for (int i = 0; i < n; i++) {
         y[i] += a * x[i];
     }
 }
 
-//random number generator
+// Random number generator
 double rand_double(double min, double max) {
-    double random_double = (double)rand() / (double)RAND_MAX;
+    double random_double = static_cast<double>(std::rand()) / static_cast<double>(RAND_MAX);
     return min + random_double * (max - min);
 }
 
-//depth 4 loop unroll function:
-void daxpy_unroll(double alpha, const double *x, double *y, int n, int block_size) {
+// Depth 4 loop unroll function:
+void daxpy_unroll(double alpha, const std::vector<double> &x, std::vector<double> &y, int n, int block_size) {
     for (int i = 0; i < n; i += block_size * 4) {
         for (int j = 0; j < block_size; j++) {
             y[i + j] += alpha * x[i + j];
@@ -33,9 +31,8 @@ void daxpy_unroll(double alpha, const double *x, double *y, int n, int block_siz
     }
 }
 
-//function for p3
-
-void dgemv(double alpha, const double **A, const double *x, double beta, double *y, int n) {
+// Function for p3
+void dgemv(double alpha, const std::vector<std::vector<double> >& A, const std::vector<double>& x, double beta, std::vector<double>& y, int n) {
     for (int i = 0; i < n; i++) {
         double temp = 0.0;
         for (int j = 0; j < n; j++) {
