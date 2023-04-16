@@ -10,6 +10,7 @@ int main() {
     int block_sizes[] = {1, 2, 4, 8, 16, 32, 64};
     int block_len = sizeof(block_sizes) / sizeof(block_sizes[0]);
     srand(time(NULL));
+    FILE *output_file = fopen("output2.txt", "w");
 
 //allocate memeories:
     double *x = (double*)malloc(n*sizeof(double));
@@ -26,21 +27,26 @@ int main() {
     for (int k = 0; k < block_len; k++) {
         int block_size = block_sizes[k];
         struct timespec start, stop;
+        double duration;
 
         //start counting time:
         clock_gettime(CLOCK_MONOTONIC, &start);
         for (int j = 0; j<ntrial; j++) {
-                daxpy_unroll(alpha, x, y, n, block_size);
-            }
+            daxpy_unroll(alpha, x, y, n, block_size);
+        }
         clock_gettime(CLOCK_MONOTONIC, &stop);
-        double duration = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;
+        duration = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;
         double avg_time = duration/ntrial;
+        double FLOPs = (2 * n) / avg_time;
 
-    printf("for block size: %d, average time = %fs\n", block_size, avg_time);
+    printf("for block size = %d, average time = %lf s, FLOPs = %lf\n", block_size, avg_time, FLOPs);
+    fprintf(output_file, "%d, %lf\n", block_size, FLOPs);
     }
 
     free(x);
     free(y);
+
+    fclose(output_file);
 
     return 0;
 }
