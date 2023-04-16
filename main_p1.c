@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-void daxpy(double a, const double *x, double *y, int n);
-double rand_double(double min, double max);
+#include "func.h"
 
 int main () {
     //initialization
     int ntrial = 1000;
     srand(time(NULL));
-    /*FILE *output_file = fopen("output.txt", "w");*/
+    FILE *output_file = fopen("output.txt", "w");
 
     //loop from 2 to 1024 with increment 1
     for (int n = 2; n <= 1024; n += 1) {
@@ -25,30 +23,27 @@ int main () {
             y[i] = rand_double(1.0, 10.0);
         }
 
-        //initializa the time and measure n trival times:
+        //initializa the time
         struct timespec start, stop;
-        double total_time = 0;
-
+         //start counting time:
+        clock_gettime(CLOCK_MONOTONIC, &start);
         for (int j = 0; j<ntrial; j++) {
-            //start counting time:
-            clock_gettime(CLOCK_MONOTONIC, &start);
             daxpy(alpha, x, y, n);
-            clock_gettime(CLOCK_MONOTONIC, &stop);
-            double duration = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;
-            total_time+= duration;
         }
+        clock_gettime(CLOCK_MONOTONIC, &stop);
 
-    //find the FLOPs
-     double avg_time = total_time/ntrial;
-     double FLOPs = (2 * n) / avg_time; //f(n) = 2*n scaler multiplication and addition
-     printf("for n = %d, average time = %lf s, FLOPs = %lf\n", n, avg_time, FLOPs);
+        //find the FLOPs
+        double duration = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;
+        double avg_time = duration/ntrial;
+        double FLOPs = (2 * n) / avg_time; //f(n) = 2*n scaler multiplication and addition
+        printf("for n = %d, average time = %lf s, FLOPs = %lf\n", n, avg_time, FLOPs);
 
-     //fprintf(output_file, "%d, %lf\n", n, FLOPs);
-    //free the memory
-     free(x);
-     free(y);
+        fprintf(output_file, "%d, %lf\n", n, FLOPs);
+        //free the memory
+        free(x);
+        free(y);
     }
 
-//fclose(output_file);
+fclose(output_file);
 return 0;
 }
