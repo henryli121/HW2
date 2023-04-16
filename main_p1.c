@@ -37,7 +37,7 @@ int main () {
         duration = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;
         double avg_time = duration/ntrial;
         double FLOPs = (2 * n) / avg_time; //f(n) = 2*n scaler multiplication and addition
-        printf("for n = %d, average time = %lf s, FLOPs = %lf\n", n, avg_time, FLOPs);
+        printf("for n = %d, average time = %lf ms, FLOPs = %lf\n", n, avg_time, FLOPs);
 
         fprintf(output_file, "%d, %lf\n", n, FLOPs);
         //free the memory

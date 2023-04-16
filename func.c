@@ -1,6 +1,7 @@
-#include "func.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
+#include "func.h"
 
 
 //function
@@ -29,5 +30,17 @@ void daxpy_unroll(double alpha, const double *x, double *y, int n, int block_siz
 
     for (int i = (n / (block_size * 4)) * block_size * 4; i < n; i++) {
         y[i] += alpha * x[i];
+    }
+}
+
+//function for p3
+
+void dgemv(double alpha, const double **A, const double *x, double beta, double *y, int n) {
+    for (int i = 0; i < n; i++) {
+        double temp = 0.0;
+        for (int j = 0; j < n; j++) {
+            temp += A[i][j] * x[j];
+        }
+        y[i] = alpha * temp + beta * y[i];
     }
 }

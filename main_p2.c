@@ -39,7 +39,7 @@ int main() {
         double avg_time = duration/ntrial;
         double FLOPs = (2 * n) / avg_time;
 
-    printf("for block size = %d, average time = %lf s, FLOPs = %lf\n", block_size, avg_time, FLOPs);
+    printf("for block size = %d, average time = %lf ms, FLOPs = %lf\n", block_size, avg_time, FLOPs);
     fprintf(output_file, "%d, %lf\n", block_size, FLOPs);
     }
 
