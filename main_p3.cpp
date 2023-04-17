@@ -3,13 +3,15 @@
 #include <ctime>
 #include <vector>
 #include <chrono>
+#include <fstream>
 #include "func.hh"
 
 int main() {
-    int ntrial = 3;
+    int ntrial = 4;
     std::srand(std::time(0));
+    std::ofstream output_file("output3.txt");
 
-    for (int n = 2; n <= 1024; n++) {
+    for (int n = 2; n <= 1024; n+=2) {
         std::vector<std::vector<double>> A(n, std::vector<double>(n));
         std::vector<double> x(n);
         std::vector<double> y(n);
@@ -35,6 +37,9 @@ int main() {
         double FLOPs = (2 * n * n + 3 * n) / (avg_time * 1e-6);
 
         std::cout << "n = " << n << ", avg_time = " << avg_time * 1e-6 << " s, FLOPs = " << FLOPs << std::endl;
+        output_file << n << ", " << FLOPs << std::endl;
     }
+
+    output_file.close();
     return 0;
 }
