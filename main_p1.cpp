@@ -9,7 +9,7 @@
 int main() {
     // Initialization
     int ntrial = 1000;
-    std::srand(std::time(nullptr));
+    std::srand(std::time(0));
     std::ofstream output_file("output.txt");
 
     // Loop from 2 to 1024 with increment 1

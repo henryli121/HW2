@@ -41,3 +41,23 @@ void dgemv(double alpha, const std::vector<std::vector<double> >& A, const std::
         y[i] = alpha * temp + beta * y[i];
     }
 }
+
+
+// Function for p4:
+void dgemm(double alpha, const std::vector<std::vector<double> > &A, const std::vector<std::vector<double> > &B, double beta, std::vector<std::vector<double> > &C, int n) {
+    std::vector<std::vector<double> > dot_prod(n, std::vector<double>(n, 0.0));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            double temp = 0.0;
+            for (int k = 0; k < n; k++) {
+                temp += A[i][k] * B[k][j];
+            }
+            dot_prod[i][j] = alpha * temp;
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            C[i][j] = dot_prod[i][j] + beta * C[i][j];
+        }
+    }
+}
