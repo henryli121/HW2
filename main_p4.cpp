@@ -4,7 +4,7 @@
 #include <vector>
 #include <chrono>
 #include <fstream>
-#include "func.hh"
+#include "refBLAS.hpp"
 
 int main() {
     //initialization
@@ -31,13 +31,13 @@ int main() {
 
         auto start = std::chrono::high_resolution_clock::now();
         for (int trial = 0; trial < ntrial; trial++) {
-            dgemm(alpha, A, B, beta, C, n);
+            dgemm<double>(alpha, A, B, beta, C, n);
         }
         auto stop = std::chrono::high_resolution_clock::now();
 
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
         double avg_time = duration / static_cast<double>(ntrial);
-        double FLOPs = (2.0 * n * n * n + 3.0 * n * n) / (avg_time * 1e-6);
+        double FLOPs = (2.0 * n * n * n + 2.0 * n * n) / (avg_time * 1e-6);
 
         std::cout << "n = " << n << ", avg_time = " << avg_time * 1e-6 << " s, FLOPs = " << FLOPs << std::endl;
         output_file << n << ", " << FLOPs << std::endl;

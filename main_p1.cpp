@@ -4,11 +4,11 @@
 #include <chrono>
 #include <vector>
 #include <fstream>
-#include "func.hh"
+#include "refBLAS.hpp"
 
 int main() {
     // Initialization
-    int ntrial = 1000;
+    int ntrial = 1024;
     std::srand(std::time(0));
     std::ofstream output_file("output.txt");
 
@@ -18,19 +18,19 @@ int main() {
         std::vector<double> x(n);
         std::vector<double> y(n);
 
-        // Assign alpha: random number between (1, 10)
-        double alpha = rand_double(1.0, 10.0);
+        // Assign alpha: random number between (0, 1)
+        double alpha = rand_double(0.0, 1.0);
        
-        // Assign random values to x and y also between (1, 10)
+        // Assign random values to x and y also between (0, 1)
         for (int i = 0; i < n; i++) {
-            x[i] = rand_double(1.0, 10.0);
-            y[i] = rand_double(1.0, 10.0);
+            x[i] = rand_double(0.0, 1.0);
+            y[i] = rand_double(0.0, 1.0);
         }
 
         // Initialize the time
         auto start = std::chrono::high_resolution_clock::now();
         for (int j = 0; j < ntrial; j++) {
-            daxpy(alpha, x, y, n);
+            daxpy<double>(alpha, x, y, n);
         }
         auto stop = std::chrono::high_resolution_clock::now();
 
