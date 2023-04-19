@@ -19,9 +19,9 @@ This the homework 2 for hpc course at the Univeristy of Washington. Homework det
     </li>
     <li>
       <p>Compile each of the main files (<code>main_p1.cpp</code>, <code>main_p3.cpp</code>, and <code>main_p4.cpp</code>) and link them with the shared library:</p>
-      <pre><code>g++ main_p1.cpp -o main_p1 -L. -lrefBLAS
-g++ main_p3.cpp -o main_p2 -L. -lrefBLAS
-g++ main_p4.cpp -o main_p3 -L. -lrefBLAS</code></pre>
+      <pre><code>g++ -std=c++11 main_p1.cpp -o main_p1 -L. -lrefBLAS
+g++ -std=c++11 main_p3.cpp -o main_p2 -L. -lrefBLAS
+g++ -std=c++11 main_p4.cpp -o main_p3 -L. -lrefBLAS</code></pre>
     </li>
     <li>
       <p>Run the compiled programs:</p>
