@@ -3,18 +3,18 @@
 #include "refBLAS.hpp"
 
 double rand_double(double min, double max);
-void daxpy_unroll(double alpha, const std::vector<double> &x, std::vector<double> &y, int n, int block_size);
+void daxpy_unroll(double alpha, const std::vector<double> &x, std::vector<double> &y, int block_size);
 
 template <typename T>
-void daxpy(T a, const std::vector<T> &x, std::vector<T> &y, int n);
+void daxpy(T a, const std::vector<T> &x, std::vector<T> &y);
 template <typename T>
-void dgemv(T alpha, const std::vector<std::vector<T> >& A, const std::vector<T>& x, T beta, std::vector<T>& y, int n);
+void dgemv(T alpha, const std::vector<std::vector<T> >& A, const std::vector<T>& x, T beta, std::vector<T>& y);
 template <typename T>
-void dgemm(T alpha, const std::vector<std::vector<T> > &A, const std::vector<std::vector<T> > &B, T beta, std::vector<std::vector<T> > &C, int n);
+void dgemm(T alpha, const std::vector<std::vector<T> > &A, const std::vector<std::vector<T> > &B, T beta, std::vector<std::vector<T> > &C);
 
-extern template void daxpy<double>(double a, const std::vector<double> &x, std::vector<double> &y, int n);
-extern template void dgemv<double>(double alpha, const std::vector<std::vector<double> >& A, const std::vector<double>& x, double beta, std::vector<double>& y, int n);
-extern template void dgemm<double>(double alpha, const std::vector<std::vector<double> > &A, const std::vector<std::vector<double> > &B, double beta, std::vector<std::vector<double> > &C, int n);
+extern template void daxpy<double>(double a, const std::vector<double> &x, std::vector<double> &y);
+extern template void dgemv<double>(double alpha, const std::vector<std::vector<double> >& A, const std::vector<double>& x, double beta, std::vector<double>& y);
+extern template void dgemm<double>(double alpha, const std::vector<std::vector<double> > &A, const std::vector<std::vector<double> > &B, double beta, std::vector<std::vector<double> > &C);
 /*
 // Function
 template <typename T>

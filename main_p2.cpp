@@ -19,6 +19,8 @@ int main() {
     std::vector<double> x(n);
     std::vector<double> y(n);
 
+    // error of x, y demension or n < block size
+
     // Assign alpha: random number between (1, 10)
     double alpha = rand_double(0.0, 1.0);
 
@@ -34,12 +36,12 @@ int main() {
         auto start = std::chrono::high_resolution_clock::now();
 
         for (int j = 0; j < ntrial; j++) {
-            daxpy_unroll(alpha, x, y, n, block_size);
+            daxpy_unroll(alpha, x, y, block_size);
         }
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
         double avg_time = duration / static_cast<double>(ntrial);
-        double FLOPs = (2 * n) / (avg_time * 1e-6);
+        double FLOPs = (2.0 * n) / (avg_time * 1e-6);
 
         std::cout << "for block size = " << block_size << ", average time = " << avg_time * 1e-6 << " s, FLOPs = " << FLOPs << std::endl;
         output_file << block_size << ", " << FLOPs << std::endl;

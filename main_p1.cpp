@@ -13,7 +13,7 @@ int main() {
     std::ofstream output_file("output.txt");
 
     // Loop from 2 to 1024 with increment 1
-    for (int n = 2; n <= 1024; n += 2) {
+    for (int n = 2; n <= 1024; n++) {
         // Allocate memories for the pointer:
         std::vector<double> x(n);
         std::vector<double> y(n);
@@ -30,7 +30,7 @@ int main() {
         // Initialize the time
         auto start = std::chrono::high_resolution_clock::now();
         for (int j = 0; j < ntrial; j++) {
-            daxpy<double>(alpha, x, y, n);
+            daxpy<double>(alpha, x, y);
         }
         auto stop = std::chrono::high_resolution_clock::now();
 

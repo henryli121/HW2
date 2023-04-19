@@ -17,21 +17,21 @@ int main() {
         std::vector<std::vector<double>> A(n, std::vector<double>(n));
         std::vector<std::vector<double>> B(n, std::vector<double>(n));
         std::vector<std::vector<double>> C(n, std::vector<double>(n));
-        double alpha = rand_double(1.0, 10.0);
-        double beta = rand_double(1.0, 10.0);
+        double alpha = rand_double(0.0, 1.0);
+        double beta = rand_double(0.0, 1.0);
 
         //assign values to matrices
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                A[i][j] = rand_double(1.0, 10.0);
-                B[i][j] = rand_double(1.0, 10.0);
-                C[i][j] = rand_double(1.0, 10.0);
+                A[i][j] = rand_double(0.0, 1.0);
+                B[i][j] = rand_double(0.0, 1.0);
+                C[i][j] = rand_double(0.0, 1.0);
             }
         }
 
         auto start = std::chrono::high_resolution_clock::now();
         for (int trial = 0; trial < ntrial; trial++) {
-            dgemm<double>(alpha, A, B, beta, C, n);
+            dgemm<double>(alpha, A, B, beta, C);
         }
         auto stop = std::chrono::high_resolution_clock::now();
 
